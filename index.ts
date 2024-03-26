@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
 
-app.use("/api/_setup", _SetupRouter);
+app.use("/_setup", _SetupRouter);
 
 app.use("/api/auth", authRouter);
 app.use("/api/cities", cityRouter);
@@ -59,5 +59,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(config.port, () => {
+  console.log(config);
   console.log("Server is running on port " + config.port);
 });

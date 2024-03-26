@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.location.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.location.findMany({
     skip: offset,
@@ -16,41 +16,59 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function getAllByCityId({ cityId }) {
+export async function getAllByCityId({ cityId }: { cityId: string }) {
   return await prisma.location.findMany({
     where: {
-      cityId: parseInt(cityId),
+      cityId: cityId,
     },
   });
 }
 
-export async function create({ latitude, longitude, cityId }) {
+export async function create({
+  latitude,
+  longitude,
+  cityId,
+}: {
+  latitude: number;
+  longitude: number;
+  cityId: string;
+}) {
   return await prisma.location.create({
     data: {
       latitude,
       longitude,
-      cityId: parseInt(cityId),
+      cityId: cityId,
     },
   });
 }
 
-export async function update({ id, latitude, longitude, cityId }) {
+export async function update({
+  id,
+  latitude,
+  longitude,
+  cityId,
+}: {
+  id: string;
+  latitude: number;
+  longitude: number;
+  cityId: string;
+}) {
   return await prisma.location.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       latitude,
       longitude,
-      cityId: parseInt(cityId),
+      cityId: cityId,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.location.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

@@ -27,10 +27,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { name } = req.body;
+  const { title } = req.body;
 
   try {
-    const roleIntern = await roleInternServices.create({ name });
+    const roleIntern = await roleInternServices.create({ title });
     res.json(roleIntern);
   } catch (error) {
     next(error);
@@ -39,10 +39,10 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const { name } = req.body;
+  const { title } = req.body;
 
   try {
-    const roleIntern = await roleInternServices.update({ id, name });
+    const roleIntern = await roleInternServices.update({ id, title });
     res.json(roleIntern);
   } catch (error) {
     next(error);

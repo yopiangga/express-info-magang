@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.company.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.company.findMany({
     skip: offset,
@@ -23,12 +23,21 @@ export async function create({
   requirements,
   benefits,
   paid,
+  roleInternId,
+}: {
+  name: string;
+  description: string;
+  locationId: string;
+  requirements: string;
+  benefits: string;
+  paid: boolean;
+  roleInternId: string;
 }) {
   return await prisma.company.create({
     data: {
       name,
       description,
-      locationId: parseInt(locationId),
+      locationId,
       requirements,
       benefits,
       paid,
@@ -44,15 +53,23 @@ export async function update({
   requirements,
   benefits,
   paid,
+}: {
+  id: string;
+  name: string;
+  description: string;
+  locationId: string;
+  requirements: string;
+  benefits: string;
+  paid: boolean;
 }) {
   return await prisma.company.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       name,
       description,
-      locationId: parseInt(locationId),
+      locationId: locationId,
       requirements,
       benefits,
       paid,
@@ -60,10 +77,10 @@ export async function update({
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.company.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

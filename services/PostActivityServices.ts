@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.postActivity.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.postActivity.findMany({
     skip: offset,
@@ -16,43 +16,65 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function getAllByCompanyId({ companyId }) {
+export async function getAllByCompanyId({ companyId }: { companyId: string }) {
   return await prisma.postActivity.findMany({
     where: {
-      companyId: parseInt(companyId),
+      companyId: companyId,
     },
   });
 }
 
-export async function create({ companyId, userId, url, caption }) {
+export async function create({
+  companyId,
+  userId,
+  url,
+  caption,
+}: {
+  companyId: string;
+  userId: string;
+  url: string;
+  caption: string;
+}) {
   return await prisma.postActivity.create({
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
+      companyId: companyId,
+      userId: userId,
       url,
       caption,
     },
   });
 }
 
-export async function update({ id, companyId, userId, url, caption }) {
+export async function update({
+  id,
+  companyId,
+  userId,
+  url,
+  caption,
+}: {
+  id: string;
+  companyId: string;
+  userId: string;
+  url: string;
+  caption: string;
+}) {
   return await prisma.postActivity.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
+      companyId: companyId,
+      userId: userId,
       url,
       caption,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.postActivity.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

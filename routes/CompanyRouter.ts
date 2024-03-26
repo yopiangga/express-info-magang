@@ -27,8 +27,15 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { name, description, locationId, requirements, benefits, paid } =
-    req.body;
+  const {
+    name,
+    description,
+    locationId,
+    requirements,
+    benefits,
+    paid,
+    roleInternId,
+  } = req.body;
 
   try {
     const company = await companyServices.create({
@@ -38,6 +45,7 @@ router.post("/", async (req, res, next) => {
       requirements,
       benefits,
       paid,
+      roleInternId,
     });
     res.json(company);
   } catch (error) {

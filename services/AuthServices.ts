@@ -1,7 +1,13 @@
 import prisma from "../prisma";
 import { generateToken } from "../helpers/jwtHelper";
 
-export async function signIn({ email, password }) {
+export async function signIn({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
   const user = await prisma.user.findUnique({
     where: {
       email,
@@ -21,7 +27,15 @@ export async function signIn({ email, password }) {
   return { token, user };
 }
 
-export async function signUp({ name, email, password }) {
+export async function signUp({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) {
   const existingUser = await prisma.user.findUnique({
     where: {
       email,

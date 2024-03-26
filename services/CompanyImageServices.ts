@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.companyImage.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.companyImage.findMany({
     skip: offset,
@@ -16,31 +16,45 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function create({ companyId, url }) {
+export async function create({
+  companyId,
+  url,
+}: {
+  companyId: string;
+  url: string;
+}) {
   return await prisma.companyImage.create({
     data: {
-      companyId: parseInt(companyId),
+      companyId: companyId,
       url,
     },
   });
 }
 
-export async function update({ id, companyId, url }) {
+export async function update({
+  id,
+  companyId,
+  url,
+}: {
+  id: string;
+  companyId: string;
+  url: string;
+}) {
   return await prisma.companyImage.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
-      companyId: parseInt(companyId),
+      companyId: companyId,
       url,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.companyImage.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

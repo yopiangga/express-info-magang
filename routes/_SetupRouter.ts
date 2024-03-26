@@ -31,7 +31,7 @@ router.get("/init", async (req, res) => {
   });
 
   const roleIntern = await roleInternServices.create({
-    name: "Software Developer",
+    title: "Software Developer",
   });
 
   const company = await companyServices.create({
@@ -41,6 +41,7 @@ router.get("/init", async (req, res) => {
     requirements: "Requirements",
     benefits: "Benefits",
     paid: true,
+    roleInternId: roleIntern.id,
   });
 
   const companyImage = await companyImageServices.create({

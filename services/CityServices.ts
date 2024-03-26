@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.city.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.city.findMany({
     skip: offset,
@@ -16,39 +16,53 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function getAllByStateId({ stateId }) {
+export async function getAllByStateId({ stateId }: { stateId: string }) {
   return await prisma.city.findMany({
     where: {
-      stateId: parseInt(stateId),
+      stateId: stateId,
     },
   });
 }
 
-export async function create({ name, stateId }) {
+export async function create({
+  name,
+  stateId,
+}: {
+  name: string;
+  stateId: string;
+}) {
   return await prisma.city.create({
     data: {
       name,
-      stateId: parseInt(stateId),
+      stateId: stateId,
     },
   });
 }
 
-export async function update({ id, name, stateId }) {
+export async function update({
+  id,
+  name,
+  stateId,
+}: {
+  id: string;
+  name: string;
+  stateId: string;
+}) {
   return await prisma.city.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       name,
-      stateId: parseInt(stateId),
+      stateId: stateId,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.city.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

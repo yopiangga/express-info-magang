@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.user.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.user.findMany({
     skip: offset,
@@ -16,7 +16,15 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function create({ name, email, password }) {
+export async function create({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) {
   return await prisma.user.create({
     data: {
       name,
@@ -26,10 +34,20 @@ export async function create({ name, email, password }) {
   });
 }
 
-export async function update({ id, name, email, password }) {
+export async function update({
+  id,
+  name,
+  email,
+  password,
+}: {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}) {
   return await prisma.user.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       name,
@@ -39,10 +57,10 @@ export async function update({ id, name, email, password }) {
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.user.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

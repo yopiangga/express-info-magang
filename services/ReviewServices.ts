@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.review.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.review.findMany({
     skip: offset,
@@ -16,43 +16,65 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function getAllByCompanyId({ companyId }) {
+export async function getAllByCompanyId({ companyId }: { companyId: string }) {
   return await prisma.review.findMany({
     where: {
-      companyId: parseInt(companyId),
+      companyId: companyId,
     },
   });
 }
 
-export async function create({ companyId, userId, rating, comment }) {
+export async function create({
+  companyId,
+  userId,
+  rating,
+  comment,
+}: {
+  companyId: string;
+  userId: string;
+  rating: number;
+  comment: string;
+}) {
   return await prisma.review.create({
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
-      rating: parseInt(rating),
+      companyId: companyId,
+      userId: userId,
+      rating: rating,
       comment,
     },
   });
 }
 
-export async function update({ id, companyId, userId, rating, comment }) {
+export async function update({
+  id,
+  companyId,
+  userId,
+  rating,
+  comment,
+}: {
+  id: string;
+  companyId: string;
+  userId: string;
+  rating: number;
+  comment: string;
+}) {
   return await prisma.review.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
-      rating: parseInt(rating),
+      companyId: companyId,
+      userId: userId,
+      rating: rating,
       comment,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.review.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

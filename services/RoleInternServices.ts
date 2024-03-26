@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.roleIntern.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.roleIntern.findMany({
     skip: offset,
@@ -16,29 +16,29 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export async function create({ name }) {
+export async function create({ title }: { title: string }) {
   return await prisma.roleIntern.create({
     data: {
-      name,
+      title,
     },
   });
 }
 
-export async function update({ id, name }) {
+export async function update({ id, title }: { id: string; title: string }) {
   return await prisma.roleIntern.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
-      name,
+      title,
     },
   });
 }
 
-export async function remove({ id }) {
+export async function remove({ id }: { id: string }) {
   return await prisma.roleIntern.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }

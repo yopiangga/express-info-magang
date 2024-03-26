@@ -38,15 +38,16 @@ model Company {
   requirements String
   benefits     String
   finalReports FinalReport[]
-  roles        RoleIntern[]
   students     User[]
   reviews      Review[]
-  typeIntern   TypeIntern
-  typeActivity TypeActivity
+  roleInternId String?
+  role         RoleIntern?    @relation(fields: [roleInternId], references: [id])
+  typeIntern   TypeIntern     @default(REGULAR)
+  typeActivity TypeActivity   @default(ONSITE)
   paid         Boolean
   registrants  Int            @default(0)
   accepted     Int            @default(0)
-  reatedAt     DateTime       @default(now())
+  createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
 
@@ -95,10 +96,10 @@ model FinalReport {
 
 model RoleIntern {
   id        String    @id @default(cuid())
-  company   Company[]
   title     String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  Company   Company[]
 }
 
 model Review {

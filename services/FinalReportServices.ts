@@ -1,14 +1,14 @@
 import prisma from "../prisma";
 
-export async function getOne({ id }) {
+export async function getOne({ id }: { id: string }) {
   return await prisma.finalReport.findUnique({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
 
-export async function getAll({ page, limit }) {
+export async function getAll({ page, limit }: { page: number; limit: number }) {
   const offset = page * limit;
   return await prisma.finalReport.findMany({
     skip: offset,
@@ -16,33 +16,51 @@ export async function getAll({ page, limit }) {
   });
 }
 
-export function create({ companyId, userId, url }) {
+export function create({
+  companyId,
+  userId,
+  url,
+}: {
+  companyId: string;
+  userId: string;
+  url: string;
+}) {
   return prisma.finalReport.create({
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
+      companyId: companyId,
+      userId: userId,
       url,
     },
   });
 }
 
-export function update({ id, companyId, userId, url }) {
+export function update({
+  id,
+  companyId,
+  userId,
+  url,
+}: {
+  id: string;
+  companyId: string;
+  userId: string;
+  url: string;
+}) {
   return prisma.finalReport.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
-      companyId: parseInt(companyId),
-      userId: parseInt(userId),
+      companyId: companyId,
+      userId: userId,
       url,
     },
   });
 }
 
-export function remove({ id }) {
+export function remove({ id }: { id: string }) {
   return prisma.finalReport.delete({
     where: {
-      id: parseInt(id),
+      id: id,
     },
   });
 }
