@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -36,7 +30,7 @@ enum UserRole {
 model Company {
   id           String         @id @default(cuid())
   name         String
-  description  String
+  description  String?
   images       CompanyImage[]
   locationId   String
   location     Location       @relation(fields: [locationId], references: [id])
@@ -44,14 +38,14 @@ model Company {
   requirements String
   benefits     String
   finalReports FinalReport[]
-  roles        Role[]
+  roles        RoleIntern[]
   students     User[]
   reviews      Review[]
   typeIntern   TypeIntern
   typeActivity TypeActivity
   paid         Boolean
-  registrants  Int
-  accepted     Int
+  registrants  Int            @default(0)
+  accepted     Int            @default(0)
   reatedAt     DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
@@ -97,7 +91,7 @@ model FinalReport {
   updatedAt DateTime @updatedAt
 }
 
-model Role {
+model RoleIntern {
   id        String   @id @default(cuid())
   companyId String
   company   Company  @relation(fields: [companyId], references: [id])
@@ -113,7 +107,7 @@ model Review {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   rating    Int
-  comment   String
+  comment   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
