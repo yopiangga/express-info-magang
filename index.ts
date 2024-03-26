@@ -15,6 +15,9 @@ import { router as reviewRouter } from "./routes/ReviewRouter";
 import { router as roleInternRouter } from "./routes/RoleInternRouter";
 import { router as stateRouter } from "./routes/StateRouter";
 import { router as userRouter } from "./routes/UserRouter";
+import { router as authRouter } from "./routes/AuthRouter";
+
+import { router as _SetupRouter } from "./routes/_SetupRouter";
 
 dotenv.config();
 
@@ -34,6 +37,9 @@ app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
 
+app.use("/api/_setup", _SetupRouter);
+
+app.use("/api/auth", authRouter);
 app.use("/api/cities", cityRouter);
 app.use("/api/company-images", companyImageRouter);
 app.use("/api/companies", companyRouter);
