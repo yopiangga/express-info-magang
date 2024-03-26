@@ -26,7 +26,7 @@ export async function create({ name, email, password }) {
   });
 }
 
-export async function update({ id, name, email, password, companyId }) {
+export async function update({ id, name, email, password }) {
   return await prisma.user.update({
     where: {
       id: parseInt(id),
@@ -35,7 +35,6 @@ export async function update({ id, name, email, password, companyId }) {
       name,
       email,
       password,
-      companyId: parseInt(companyId),
     },
   });
 }
