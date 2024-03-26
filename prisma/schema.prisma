@@ -63,8 +63,8 @@ model Location {
   id        String    @id @default(cuid())
   latitude  Float
   longitude Float
-  city      String
-  state     String
+  cityId    String
+  city      City      @relation(fields: [cityId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Company   Company[]
@@ -121,4 +121,22 @@ enum TypeActivity {
   ONSITE
   REMOTE
   HYBRID
+}
+
+model City {
+  id        String     @id @default(cuid())
+  name      String
+  stateId   String
+  state     State      @relation(fields: [stateId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Location  Location[]
+}
+
+model State {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  City      City[]
 }
