@@ -61,7 +61,11 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const { name, description, locationId, requirements, benefits, paid } =
+  const { name, description, requirements, benefits, paid , latitude,
+    longitude,
+    cityId,
+    typeIntern,
+    typeActivity} =
     req.body;
 
   try {
@@ -69,10 +73,14 @@ router.put("/:id", async (req, res, next) => {
       id,
       name,
       description,
-      locationId,
       requirements,
       benefits,
       paid,
+      latitude,
+      longitude,
+      cityId,
+      typeIntern,
+      typeActivity
     });
     res.json(company);
   } catch (error) {

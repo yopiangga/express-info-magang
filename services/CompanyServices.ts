@@ -60,18 +60,26 @@ export async function update({
   id,
   name,
   description,
-  locationId,
   requirements,
   benefits,
   paid,
+  latitude,
+      longitude,
+      cityId,
+      typeIntern,
+      typeActivity
 }: {
   id: string;
   name: string;
   description: string;
-  locationId: string;
   requirements: string;
   benefits: string;
   paid: boolean;
+  latitude: string;
+  longitude: string;
+  cityId: string;
+  typeIntern: TypeIntern;
+  typeActivity: TypeActivity;
 }) {
   return await prisma.company.update({
     where: {
@@ -83,6 +91,11 @@ export async function update({
       requirements,
       benefits,
       paid,
+      latitude,
+      longitude,
+      cityId,
+      typeIntern,
+      typeActivity
     },
   });
 }
