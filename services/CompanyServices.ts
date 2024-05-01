@@ -1,3 +1,4 @@
+import { TypeActivity, TypeIntern } from "@prisma/client";
 import prisma from "../prisma";
 
 export async function getOne({ id }: { id: string }) {
@@ -19,28 +20,38 @@ export async function getAll({ page, limit }: { page: number; limit: number }) {
 export async function create({
   name,
   description,
-  locationId,
   requirements,
   benefits,
   paid,
-  roleInternId,
+  latitude,
+  longitude,
+  cityId,
+  typeIntern,
+  typeActivity
 }: {
   name: string;
   description: string;
-  locationId: string;
   requirements: string;
   benefits: string;
   paid: boolean;
-  roleInternId: string;
+  latitude: string;
+  longitude: string;
+  cityId: string;
+  typeIntern: TypeIntern;
+  typeActivity: TypeActivity;
 }) {
   return await prisma.company.create({
     data: {
       name,
       description,
-      locationId,
       requirements,
       benefits,
       paid,
+      latitude,
+      longitude,
+      cityId,
+      typeIntern,
+      typeActivity
     },
   });
 }
@@ -69,7 +80,6 @@ export async function update({
     data: {
       name,
       description,
-      locationId: locationId,
       requirements,
       benefits,
       paid,

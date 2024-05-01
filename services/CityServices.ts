@@ -27,14 +27,17 @@ export async function getAllByStateId({ stateId }: { stateId: string }) {
 export async function create({
   name,
   stateId,
+  id
 }: {
   name: string;
   stateId: string;
+  id: string;
 }) {
   return await prisma.city.create({
     data: {
       name,
       stateId: stateId,
+      id
     },
   });
 }

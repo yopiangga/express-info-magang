@@ -27,10 +27,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { name } = req.body;
+  const { name, id } = req.body;
 
   try {
-    const state = await stateServices.create({ name });
+    const state = await stateServices.create({ name, id });
     res.json(state);
   } catch (error) {
     next(error);

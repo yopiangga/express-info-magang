@@ -16,9 +16,10 @@ export async function getAll({ page, limit }: { page: number; limit: number }) {
   });
 }
 
-export async function create({ name }: { name: string }) {
+export async function create({ name, id }: { name: string, id: string}) {
   return await prisma.state.create({
     data: {
+      id,
       name,
     },
   });

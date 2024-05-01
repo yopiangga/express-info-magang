@@ -27,10 +27,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { title } = req.body;
+  const { title, companyId } = req.body;
 
   try {
-    const roleIntern = await roleInternServices.create({ title });
+    const roleIntern = await roleInternServices.create({ title, companyId });
     res.json(roleIntern);
   } catch (error) {
     next(error);

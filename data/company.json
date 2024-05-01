@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "name": "PT XL Axiata Tbk",
+      "description": "PT XL Axiata Tbk, is an Indonesia-based mobile telecommunications services operator headquartered at Jakarta. It is the third largest mobile telecommunications company in Indonesia",
+      "latitude": "-6.2088",
+      "longitude": "106.8456",
+      "requirements": "sedang menempuh Sarjana/D4",
+      "benefits": "Softskil Development, Golden Ticket MT Program",
+      "role": "Ai IoT",
+      "typeIntern": "MSIB",
+      "typeActivity": "HYBRID",
+      "paid": true,
+      "cityId": "1101"
+    },
+    {
+      "id": 2,
+      "name": "PT Otak kanan",
+      "description": "PT. Otak Kanan merupakan perusahaan yang bergerak di bidang industri kreatif atau konsultan IT",
+      "latitude": "-6.2088",
+      "longitude": "106.8456",
+      "requirements": "sedang menempuh Sarjana/D4",
+      "benefits": "Uang Saku",
+      "role": "Mobile Dev",
+      "typeIntern": "MSIB",
+      "typeActivity": "ONSITE",
+      "paid": true,
+      "cityId": "1011"
+    }
+  ]

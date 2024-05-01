@@ -16,10 +16,11 @@ export async function getAll({ page, limit }: { page: number; limit: number }) {
   });
 }
 
-export async function create({ title }: { title: string }) {
+export async function create({ title, companyId }: { title: string, companyId: string}) {
   return await prisma.roleIntern.create({
     data: {
       title,
+      companyId,
     },
   });
 }

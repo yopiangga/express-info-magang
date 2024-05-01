@@ -30,22 +30,28 @@ router.post("/", async (req, res, next) => {
   const {
     name,
     description,
-    locationId,
     requirements,
     benefits,
     paid,
-    roleInternId,
+    latitude,
+    longitude,
+    cityId,
+    typeIntern,
+    typeActivity
   } = req.body;
 
   try {
     const company = await companyServices.create({
       name,
       description,
-      locationId,
+      latitude,
+      longitude,
+      cityId,
       requirements,
       benefits,
       paid,
-      roleInternId,
+      typeIntern,
+      typeActivity
     });
     res.json(company);
   } catch (error) {

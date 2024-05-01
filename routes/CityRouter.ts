@@ -38,10 +38,10 @@ router.get("/state/:stateId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { name, stateId } = req.body;
+  const { name, stateId, id } = req.body;
 
   try {
-    const city = await cityServices.create({ name, stateId });
+    const city = await cityServices.create({ name, stateId, id });
     res.json(city);
   } catch (error) {
     next(error);

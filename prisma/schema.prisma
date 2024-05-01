@@ -32,16 +32,16 @@ model Company {
   name         String
   description  String?
   images       CompanyImage[]
-  locationId   String
-  location     Location       @relation(fields: [locationId], references: [id])
+  latitude     String
+  longitude    String
+  cityId       String
   postActivity PostActivity[]
   requirements String
   benefits     String
   finalReports FinalReport[]
   students     User[]
   reviews      Review[]
-  roleInternId String?
-  role         RoleIntern?    @relation(fields: [roleInternId], references: [id])
+  roles        RoleIntern[]
   typeIntern   TypeIntern     @default(REGULAR)
   typeActivity TypeActivity   @default(ONSITE)
   paid         Boolean
@@ -58,17 +58,6 @@ model CompanyImage {
   url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Location {
-  id        String    @id @default(cuid())
-  latitude  Float
-  longitude Float
-  cityId    String
-  city      City      @relation(fields: [cityId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Company   Company[]
 }
 
 model PostActivity {
@@ -95,11 +84,12 @@ model FinalReport {
 }
 
 model RoleIntern {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   title     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Company   Company[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
 }
 
 model Review {
@@ -117,6 +107,7 @@ model Review {
 enum TypeIntern {
   MSIB
   REGULAR
+  LAINNYA
 }
 
 enum TypeActivity {
@@ -126,13 +117,12 @@ enum TypeActivity {
 }
 
 model City {
-  id        String     @id @default(cuid())
+  id        String   @id @default(cuid())
   name      String
   stateId   String
-  state     State      @relation(fields: [stateId], references: [id])
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Location  Location[]
+  state     State    @relation(fields: [stateId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model State {
