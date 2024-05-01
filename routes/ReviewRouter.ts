@@ -1,5 +1,7 @@
 import express from "express";
 import * as reviewServices from "../services/ReviewServices";
+import * as userServices from "../services/UserServices";
+import { JWTRequest } from "../middleware/jwtAuth";
 
 export const router = express.Router();
 
@@ -38,16 +40,30 @@ router.get("/company/:companyId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { companyId, userId, rating, comment } = req.body;
+  const userId = (req as JWTRequest).user.id;
+
+  const { rating, comment } = req.body;
 
   try {
-    const review = await reviewServices.create({
-      companyId,
-      userId,
-      rating,
-      comment,
-    });
-    res.json(review);
+    const user = await userServices.getOne({ id: userId });
+    if (!user) {
+      res.status(400).json({ message: "Company not found" });
+      return;
+    }
+
+    const companyId = user?.companyId ?? "";
+
+    try {
+      const review = await reviewServices.create({
+        companyId,
+        userId,
+        rating,
+        comment,
+      });
+      res.json(review);
+    } catch (error) {
+      next(error);
+    }
   } catch (error) {
     next(error);
   }
@@ -55,13 +71,11 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const { companyId, userId, rating, comment } = req.body;
+  const { rating, comment } = req.body;
 
   try {
     const review = await reviewServices.update({
       id,
-      companyId,
-      userId,
       rating,
       comment,
     });

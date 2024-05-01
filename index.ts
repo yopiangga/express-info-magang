@@ -17,6 +17,7 @@ import { router as userRouter } from "./routes/UserRouter";
 import { router as authRouter } from "./routes/AuthRouter";
 
 import { router as _SetupRouter } from "./routes/_SetupRouter";
+import { jwtAuthMiddleware } from "./middleware/jwtAuth";
 
 dotenv.config();
 
@@ -42,12 +43,12 @@ app.use("/api/auth", authRouter);
 app.use("/api/cities", cityRouter);
 app.use("/api/company-images", companyImageRouter);
 app.use("/api/companies", companyRouter);
-app.use("/api/final-reports", FinalReportRouter);
-app.use("/api/post-activities", postActivityRouter);
-app.use("/api/reviews", reviewRouter);
+app.use("/api/final-reports", jwtAuthMiddleware, FinalReportRouter);
+app.use("/api/post-activities", jwtAuthMiddleware, postActivityRouter);
+app.use("/api/reviews", jwtAuthMiddleware, reviewRouter);
 app.use("/api/role-interns", roleInternRouter);
 app.use("/api/states", stateRouter);
-app.use("/api/users", userRouter);
+app.use("/api/users", jwtAuthMiddleware, userRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.status || 500;

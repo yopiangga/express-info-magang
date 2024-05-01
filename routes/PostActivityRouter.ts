@@ -1,5 +1,7 @@
 import express from "express";
 import * as postActivityServices from "../services/PostActivityServices";
+import * as userServices from "../services/UserServices";
+import { JWTRequest } from "../middleware/jwtAuth";
 
 export const router = express.Router();
 
@@ -40,16 +42,29 @@ router.get("/company/:companyId", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  const { companyId, userId, url, caption } = req.body;
+  const userId = (req as JWTRequest).user.id;
+  const { url, caption } = req.body;
 
   try {
-    const postActivity = await postActivityServices.create({
-      companyId,
-      userId,
-      url,
-      caption,
-    });
-    res.json(postActivity);
+    const user = await userServices.getOne({ id: userId });
+    if (!user) {
+      res.status(400).json({ message: "Company not found" });
+      return;
+    }
+
+    const companyId = user?.companyId ?? "";
+
+    try {
+      const postActivity = await postActivityServices.create({
+        companyId,
+        userId,
+        url,
+        caption,
+      });
+      res.json(postActivity);
+    } catch (error) {
+      next(error);
+    }
   } catch (error) {
     next(error);
   }
@@ -57,13 +72,11 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   const id = req.params.id;
-  const { companyId, userId, url, caption } = req.body;
+  const { url, caption } = req.body;
 
   try {
     const postActivity = await postActivityServices.update({
       id,
-      companyId,
-      userId,
       url,
       caption,
     });

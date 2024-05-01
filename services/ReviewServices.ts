@@ -47,14 +47,10 @@ export async function create({
 
 export async function update({
   id,
-  companyId,
-  userId,
   rating,
   comment,
 }: {
   id: string;
-  companyId: string;
-  userId: string;
   rating: number;
   comment: string;
 }) {
@@ -63,8 +59,6 @@ export async function update({
       id: id,
     },
     data: {
-      companyId: companyId,
-      userId: userId,
       rating: rating,
       comment,
     },

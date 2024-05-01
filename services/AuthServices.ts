@@ -22,9 +22,11 @@ export async function signIn({
     throw new Error("Invalid password");
   }
 
+  const { password: _, ...userWithoutPassword } = user;
+
   const token = generateToken(user.id.toString(), user.email, user.role);
 
-  return { token, user };
+  return { token, user: userWithoutPassword };
 }
 
 export async function signUp({
@@ -58,7 +60,9 @@ export async function signUp({
     throw new Error("User not created");
   }
 
+  const { password: _, ...userWithoutPassword } = user;
+
   const token = generateToken(user.id.toString(), user.email, user.role);
 
-  return { token, user };
+  return { token, user: userWithoutPassword };
 }

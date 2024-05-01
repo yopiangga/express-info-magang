@@ -36,13 +36,9 @@ export function create({
 
 export function update({
   id,
-  companyId,
-  userId,
   url,
 }: {
   id: string;
-  companyId: string;
-  userId: string;
   url: string;
 }) {
   return prisma.finalReport.update({
@@ -50,8 +46,6 @@ export function update({
       id: id,
     },
     data: {
-      companyId: companyId,
-      userId: userId,
       url,
     },
   });

@@ -1,5 +1,6 @@
 import express from "express";
 import * as userServices from "../services/UserServices";
+import { UserRole } from "@prisma/client";
 
 export const router = express.Router();
 
@@ -9,7 +10,12 @@ router.get("/", async (req, res, next) => {
 
   try {
     const users = await userServices.getAll({ page, limit });
-    res.json(users);
+    const users_without_password = users.map((user) => {
+      const { password, ...userWithoutPassword } = user;
+      return userWithoutPassword;
+    });
+
+    res.json(users_without_password);
   } catch (error) {
     next(error);
   }
@@ -20,7 +26,18 @@ router.get("/:id", async (req, res, next) => {
 
   try {
     const user = await userServices.getOne({ id });
-    res.json(user);
+    const { password, ...userWithoutPassword } = user as {
+      id: string;
+      email: string;
+      name: string | null;
+      password: string;
+      role: UserRole;
+      createdAt: Date;
+      updatedAt: Date;
+      companyId: string | null;
+    };
+
+    res.json(userWithoutPassword);
   } catch (error) {
     next(error);
   }
