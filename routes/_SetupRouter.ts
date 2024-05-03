@@ -51,18 +51,19 @@ router.get("/company", async (req, res) => {
   const data_company = require(`${process.env.PATH_EXPRESS}/data/company.json`);
 
   data_company.forEach(async (company: any) => {
-    const company_data = await companyServices.create({
-      name: company.name,
-      description: company.description,
-      requirements: company.requirements,
-      benefits: company.benefits,
-      paid: company.paid,
-      latitude: company.latitude,
-      longitude: company.longitude,
-      cityId: company.cityId,
-      typeIntern: company.typeIntern,
-      typeActivity: company.typeActivity
-    });
+      const company_data = await companyServices.create({
+        name: company.name,
+        description: company.description,
+        requirements: company.requirements,
+        benefits: company.benefits,
+        paid: company.paid,
+        latitude: company.latitude,
+        longitude: company.longitude,
+        cityId: company.cityId,
+        typeIntern: company.typeIntern,
+        typeActivity: company.typeActivity
+      });
+    
 
     const roleIntern = await roleInternServices.create({
       title: "Software Developer",
@@ -76,14 +77,14 @@ router.get("/company", async (req, res) => {
 
     const postActivity = await postActivityServices.create({
       companyId: company_data.id,
-      userId: "clvna5fv30000ismzpehwloiv",
+      userId: "clvq1y8u20000rdousxc4bk8n",
       url: "https://via.placeholder.com/150",
       caption: "Caption",
     });
   
     const review = await reviewServices.create({
       companyId: company_data.id,
-      userId: "clvna5fv30000ismzpehwloiv",
+      userId: "clvq1y8u20000rdousxc4bk8n",
       rating: 5,
       comment: "Comment",
     });

@@ -15,6 +15,7 @@ import { router as roleInternRouter } from "./routes/RoleInternRouter";
 import { router as stateRouter } from "./routes/StateRouter";
 import { router as userRouter } from "./routes/UserRouter";
 import { router as authRouter } from "./routes/AuthRouter";
+import { router as HomeRouter} from "./routes/HomeRouter";
 
 import { router as _SetupRouter } from "./routes/_SetupRouter";
 import { jwtAuthMiddleware } from "./middleware/jwtAuth";
@@ -49,6 +50,7 @@ app.use("/api/reviews", jwtAuthMiddleware, reviewRouter);
 app.use("/api/role-interns", roleInternRouter);
 app.use("/api/states", stateRouter);
 app.use("/api/users", jwtAuthMiddleware, userRouter);
+app.use("/api/home", HomeRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.status || 500;

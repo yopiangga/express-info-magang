@@ -34,7 +34,6 @@ model Company {
   images       CompanyImage[]
   latitude     String
   longitude    String
-  cityId       String
   postActivity PostActivity[]
   requirements String
   benefits     String
@@ -47,6 +46,8 @@ model Company {
   paid         Boolean
   registrants  Int            @default(0)
   accepted     Int            @default(0)
+  cityId       String
+  City         City           @relation(fields: [cityId], references: [id])
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
 }
@@ -117,12 +118,13 @@ enum TypeActivity {
 }
 
 model City {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   name      String
   stateId   String
-  state     State    @relation(fields: [stateId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  State     State     @relation(fields: [stateId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Company   Company[]
 }
 
 model State {

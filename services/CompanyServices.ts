@@ -49,9 +49,9 @@ export async function create({
       paid,
       latitude,
       longitude,
-      cityId,
       typeIntern,
-      typeActivity
+      typeActivity,
+      cityId
     },
   });
 }
