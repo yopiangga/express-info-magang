@@ -17,6 +17,7 @@ import { router as userRouter } from "./routes/UserRouter";
 import { router as authRouter } from "./routes/AuthRouter";
 import { router as HomeRouter} from "./routes/HomeRouter";
 import { router as MapRouter } from "./routes/MapRouter"
+import { router as ProfileRouter } from "./routes/ProfileRouter"
 
 import { router as _SetupRouter } from "./routes/_SetupRouter";
 import { jwtAuthMiddleware } from "./middleware/jwtAuth";
@@ -53,6 +54,7 @@ app.use("/api/states", stateRouter);
 app.use("/api/users", jwtAuthMiddleware, userRouter);
 app.use("/api/home", HomeRouter);
 app.use("/api/map", MapRouter)
+app.use("/api/profile", jwtAuthMiddleware, ProfileRouter);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const statusCode = err.status || 500;
