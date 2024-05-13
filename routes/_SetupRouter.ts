@@ -77,14 +77,14 @@ router.get("/company", async (req, res) => {
 
     const postActivity = await postActivityServices.create({
       companyId: company_data.id,
-      userId: "clvq1y8u20000rdousxc4bk8n",
+      userId: "clvqpecwt00008kupni47ktwd",
       url: "https://via.placeholder.com/150",
       caption: "Caption",
     });
   
     const review = await reviewServices.create({
       companyId: company_data.id,
-      userId: "clvq1y8u20000rdousxc4bk8n",
+      userId: "clvqpecwt00008kupni47ktwd",
       rating: 5,
       comment: "Comment",
     });
