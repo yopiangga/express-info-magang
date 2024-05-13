@@ -30,7 +30,7 @@ enum UserRole {
 model Company {
   id           String         @id @default(cuid())
   name         String
-  description  String?
+  description  String?        @db.VarChar(length: 10000)
   images       CompanyImage[]
   latitude     String
   longitude    String
