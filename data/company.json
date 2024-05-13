@@ -136,7 +136,7 @@
     "role": "Fullstack Dev",
     "typeIntern": "REGULAR",
     "typeActivity": "HYBRID",
-    "paid": "true",
+    "paid": true,
     "cityId": "3173"
   }
 ]
